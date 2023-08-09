@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # Permit the required parameters for user sign-up
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email password ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email password])
   end
-
 end
