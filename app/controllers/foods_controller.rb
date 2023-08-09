@@ -1,11 +1,13 @@
 class FoodsController < ApplicationController
-    before_action :set_food, only: %i[show edit update destroy]
+    before_action :set_food, only: [:show, :edit, :update, :destroy]
   
     def index
       @foods = Food.all
     end
   
-    def show; end
+    def show
+      # No additional code needed here
+    end
   
     def new
       @food = Food.new
@@ -13,6 +15,7 @@ class FoodsController < ApplicationController
   
     def create
       @food = Food.new(food_params)
+      @food.user = current_user
   
       if @food.save
         redirect_to foods_url, notice: 'Food was successfully created.'
@@ -21,10 +24,19 @@ class FoodsController < ApplicationController
       end
     end
   
-    def edit; end
+    def edit
+      # No additional code needed here
+    end
+  
+    def update
+      if @food.update(food_params)
+        redirect_to foods_url, notice: 'Food was successfully updated.'
+      else
+        render :edit
+      end
+    end
   
     def destroy
-      @food = Food.find(params[:id])
       @food.destroy
       redirect_to foods_url, notice: 'Food item was successfully deleted.'
     end
