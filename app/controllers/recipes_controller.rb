@@ -39,6 +39,10 @@ class RecipesController < ApplicationController
     redirect_to recipes_path
   end
 
+  def public_list
+    @public_recipes = Recipe.where(public: true).order(created_at: :desc)
+  end
+
   private
 
   def recipe_params
