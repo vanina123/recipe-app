@@ -12,3 +12,4 @@ Rails.application.routes.draw do
     end
     resources :recipe_foods, only: %i[new create destroy] 
   end
+end
