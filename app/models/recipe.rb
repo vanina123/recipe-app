@@ -3,6 +3,11 @@ class Recipe < ApplicationRecord
   has_many :recipe_foods
   has_many :foods, through: :recipe_foods
 
+  validates :name, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :preparation_time, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :cooking_time, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :description, presence: true
+
   def foods_counter
     recipe_foods.count
   end

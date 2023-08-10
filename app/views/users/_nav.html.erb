@@ -1,3 +1,8 @@
-<%= link_to "foods", foods_path %>
-<%= link_to 'recipes', user_recipes_path(current_user) %>
-<%= link_to 'public_recipes', root_path %>
+<% if user_signed_in? %>
+  <%= link_to 'Foods', foods_path %>
+  <%= link_to 'Recipes', user_recipes_path(current_user) %>
+  <%= link_to 'Public Recipes', root_path %>
+<% else %>
+  <%= link_to 'Foods', foods_path %>
+  <%= link_to 'Public Recipes', root_path %>
+<% end %>
