@@ -69,13 +69,13 @@ class RecipesController < ApplicationController
     @user = current_user
     @recipes = @user.recipes.includes(recipe_foods: :food)
 
-    @missing_foods = []
-    @recipes.each do |recipe|
-      @missing_foods += recipe.missing_foods
-    end
+    @missing_foods = RecipeFood.includes(food: :user)
+      .where(recipe: @recipes)
+      .select('foods.*, recipe_foods.quantity AS recipe_food_quantity')
+      .to_a
 
-    @total_food_items = @missing_foods.sum { |food| food.recipe_food.quantity }
-    @total_price = @missing_foods.sum { |food| food.recipe_food.quantity * food.price }
+    @total_food_items = @missing_foods.sum(&:recipe_food_quantity)
+    @total_price = @missing_foods.sum { |food| food.recipe_food_quantity * food.price }
   end
 
   private
