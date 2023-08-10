@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :foods
+  resources :foods, only: %i[index new create destroy]
   post 'recipes/:id/toggle', to: 'recipes#toggle', as: :toggle_recipe 
   get 'general_shopping_list', to: 'users#shopping_list'
   resources :users do
