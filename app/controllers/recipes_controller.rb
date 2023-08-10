@@ -78,10 +78,6 @@ class RecipesController < ApplicationController
     @total_price = @missing_foods.sum { |food| food.recipe_food.quantity * food.price }
   end
 
-  def public_list
-    @public_recipes = Recipe.where(public: true).order(created_at: :desc)
-  end
-
   private
 
   def recipe_params
