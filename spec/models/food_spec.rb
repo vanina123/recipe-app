@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Food, type: :model do
   before :each do
     @user = User.create!(name: 'paul', email: 'paul@gmail.com', password: 'Password')
-    @food = Food.create!(name: 'Beans', measurement_unit: 'Kg', price: 300, quantity: 2, user: @user )
+    @food = Food.create!(name: 'Beans', measurement_unit: 'Kg', price: 300, quantity: 2, user: @user)
   end
 
   it 'can be created' do
@@ -16,10 +16,10 @@ RSpec.describe Food, type: :model do
   end
 
   it 'requires a name with at least 2 characters' do
-    @food.name = '' 
+    @food.name = ''
     expect(@food).to_not be_valid
   end
-  
+
   it 'requires a name with at most 50 characters' do
     @food.name = '' * 51
     expect(@food).to_not be_valid
