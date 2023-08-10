@@ -1,27 +1,14 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
-
-  def show
+  def shopping_list
     @user = current_user
-  end
+    @recipes = @user.recipes.includes(:recipe_foods => [:food])
 
-  def edit
-    @user = current_user
-  end
-
-  def update
-    @user = current_user
-
-    if @user.update(user_params)
-      redirect_to user_path, notice: 'Profile successfully updated.'
-    else
-      render :edit
+    @missing_foods = []
+    @recipes.each do |recipe|
+      @missing_foods += recipe.missing_foods
     end
-  end
 
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :email)
+    @total_food_items = @missing_foods.sum { |recipe_food| recipe_food.quantity }
+    @total_price = @missing_foods.sum { |recipe_food| recipe_food.quantity * recipe_food.food.price }
   end
 end
