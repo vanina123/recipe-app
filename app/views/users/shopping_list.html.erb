@@ -1,0 +1,13 @@
+<h1>Shopping List</h1>
+
+<ul>
+  <% @missing_foods.each do |missing_food| %>
+    <li>
+      <%= "#{missing_food.recipe_food.quantity} #{missing_food.measurement_unit} - #{missing_food.name}" %>
+      (Buy: <%= missing_food.missing_quantity %> <%= missing_food.measurement_unit %>)
+    </li>
+  <% end %>
+</ul>
+
+<p>Amount of Food Items to Buy: <%= @missing_foods.sum(&:missing_quantity) %></p>
+<p>Total Value of Food Needed: $<%= @missing_foods.sum { |food| food.missing_quantity * food.food.price } %></p>

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
   def shopping_list
     @user = current_user
     @recipes = @user.recipes.includes(recipe_foods: [:food])
