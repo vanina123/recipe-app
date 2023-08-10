@@ -1,0 +1,21 @@
+<h1>Public</h1>
+<section class="container">
+  <% @public_recipes.each do |recipe| %>
+    <div class="card mb-3" style="width: 50rem;">
+      <div class="card-body d-flex space-between">
+        <div class="card-body d-flex flex-column col-md-8">
+          <h5 class="card-title">
+            <%= link_to recipe.name, root_path %>
+          </h5>
+          <% if recipe.user.present? %>
+            <h6 class="card-subtitle mb-2 text-muted"><%= recipe.user.name %></h6>
+          <% else %>
+            <h6 class="card-subtitle mb-2 text-muted">Unknown User</h6>
+          <% end %>
+          <p class="mt-4">Total food items: <%= recipe.foods_counter %></p>
+          <p class="mt-4">Total price: $<%= recipe.foods_total_price %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</section>

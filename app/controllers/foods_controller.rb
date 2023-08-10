@@ -1,26 +1,26 @@
 class FoodsController < ApplicationController
-  before_action :set_food, only: %i[show edit update destroy]
+  before_action :set_food, only: %i[show edit destroy]
+  before_action :authenticate_user!
 
+  # GET /foods
   def index
-    @foods = Food.all
+    @foods = current_user.foods
   end
 
-  def show
-    # No additional code needed here
-  end
-
+  # GET /foods/new
   def new
     @food = Food.new
   end
 
+  # POST /foods
   def create
-    @food = Food.new(food_params)
-    @food.user = current_user
+    @food = current_user.foods.new(food_params)
+    @food.name = @food.name.titleize
 
     if @food.save
       redirect_to foods_url, notice: 'Food was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
