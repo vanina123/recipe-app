@@ -17,17 +17,12 @@ class RecipeFoodsController < ApplicationController
     def destroy
         @recipe_food = RecipeFood.find_by(food_id: params[:id], recipe_id: params[:recipe_id])
         p @recipe_food
-        # @recipe_food = RecipeFood.find(params[:recipe_food_id])
-        # @recipe_food.destroy
         if @recipe_food.destroy
             redirect_to(request.referrer || root_path)
           else
             flash[:error] = 'error'
           end
-        
-        # redirect_to user_recipe_path(id: @recipe_food.recipe_id, user_id: current_user.id), notice: 'Food item was successfully deleted.'
     end
-  
   
     private
   
