@@ -1,10 +1,29 @@
-<% if user_signed_in? %>
-  <%= link_to 'Foods', foods_path %>
-  <%= link_to 'Recipes', user_recipes_path(current_user) %>
-  <%= link_to 'Public Recipes', root_path %>
-  <%= link_to 'Shoping list', general_shopping_list_path  %>
-
-<% else %>
-  <%= link_to 'Foods', foods_path %>
-  <%= link_to 'Public Recipes', root_path %>
-<% end %>
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <% if user_signed_in? %>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <%= link_to 'Foods', foods_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Recipes', user_recipes_path(current_user), class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Public Recipes', root_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Shopping List', general_shopping_list_path, class: 'nav-link' %>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <%= link_to 'Foods', foods_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Public Recipes', root_path, class: 'nav-link' %>
+        </li>
+      </ul>
+    <% end %>
+  </nav>
+</div>

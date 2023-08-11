@@ -22,10 +22,10 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 GEM BLOG APP <a name="about-project"></a>
+# 📖 RECIPE APP <a name="about-project"></a>
 
 
-**GEM BLOG APP** is a software application that allows users to create and manage blogs. Blog apps typically provide features such as a WYSIWYG editor for creating blog posts, a commenting system for allowing users to interact with blog posts, and a RSS feed for allowing users to subscribe to blog posts.
+**RECIPE APP**  is the one-stop shop for all your cooking needs. With Recipe App, you can find recipes for any occasion, from simple weeknight meals to elaborate holiday feasts. You can also create your own recipes and share them with the community.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -49,11 +49,15 @@
 
 ### Key Features <a name="key-features"></a>
 
-- **User**: Register, login, and manage user accounts. Each user has a profile with a name, photo, bio, and post counter.
+- **User**: Register, login, and manage user accounts. 
 
-- **Post items**: Create and publish blog posts with a title, text, and optional media attachments.
+- **Foods**: Add and delete foods by a specific user
 
-- **Commenting System**: Each user has the ability to like and comment on each post on the blog
+- **Recipes**: Add, delete and view recipes details. In the recipe details, the user can view details like the preparation time, cooking time, also making the recipe public, the shopping list, adding ingredient , and lastly a table which displays all the ingredients he might have added
+
+- **Shopping list**: The shopping list display the ammount of items his to buy, and the total amount of the items($). Lastly a table to draft the list.
+
+- **Public Recipes**: These are recipes that were made public upon creating a recipe by a user. It includes the recipe name, the user name, the food item(s) and total price($)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -86,14 +90,14 @@ Clone this repository to your desired folder:
 
 ```sh
   cd my-folder
-  git clone https://github.com/vanina123/blog-app.git
+  git clone https://github.com/vanina123/recipe-app.git
 ```
 ### Install
 
 Install this project with:
 
 ```sh
-  cd Gem-blog
+  cd recipe-app
   bundle install
 ```
 ### Usage
@@ -114,11 +118,12 @@ To run the project, execute the following command:
 - Twitter: [@DUfevan](https://twitter.com/DufeVanina)
 - LinkedIn: [Vanina](https://www.linkedin.com/in/larissa-vanina/)
 
-👤 **Osman Wako**
+👤 **Esther Udondian**
 
-- GitHub: [@osmanwako](https://github.com/osmanwako)
-- Twitter: [@osmanWakow](https://twitter.com/osmanwakow)
-- LinkedIn :[@osmanWako](https://www.linkedin.com/in/osmanwako/)
+- GitHub: [@Click here](https://github.com/eudondian)
+- Twitter: [@Click here](https://twitter.com/EUdondian)
+- LinkedIn: [@Click here](https://www.linkedin.com/in/esther-udondian/)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -126,17 +131,9 @@ To run the project, execute the following command:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- Project 2: Validations and Model specs.
-- Project 3: Processing data in models.
-- Project 4: Setup and controllers.
-- Project 5: Controllers specs.
-- Project 6: Views.
-- Project 7: Forms.
-- Project 8: Integration specs for Views and fixing n+1 problems.
-- Project 9: Add Devise.
-- Project 10: Add authorization rules.
-- Project 11: Add API endpoints.
-- Exercise: API documentation.
+
+- Project 1: Add API endpoints.
+- Project 2: Add more styles
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -146,12 +143,11 @@ To run the project, execute the following command:
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/vanina123/blog-app/issues).
+Feel free to check the [issues page](https://github.com/vanina123/recipe-app/issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- SUPPORT -->
-
 ## ⭐️ Show your support <a name="support"></a>
 
 
