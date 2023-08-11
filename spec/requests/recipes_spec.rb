@@ -23,7 +23,8 @@ RSpec.describe RecipesController, type: :request do
 
     describe 'GET #show' do
       let(:recipe) do
-        Recipe.create(name: 'Soup', preparation_time: '30 mins', cooking_time: "30 mins", description: 'Soup', public: false,
+        Recipe.create(name: 'Soup', preparation_time: '30 mins', cooking_time: '30 mins',
+                      description: 'Soup', public: false,
                       user_id: user.id)
       end
 
@@ -49,10 +50,10 @@ RSpec.describe RecipesController, type: :request do
           post "/users/#{user.id}/recipes",
                params: {
                  recipe: {
-                   name: 'Briyani',
+                   name: 'Vanina',
                    preparation_time: '30 mins',
                    cooking_time: '30 mins',
-                   description: 'Fried rice',
+                   description: 'Fried',
                    public: false,
                    user_id: user.id
                  }
@@ -63,7 +64,8 @@ RSpec.describe RecipesController, type: :request do
 
     describe 'GET #destroy' do
       let!(:recipe) do
-        Recipe.create(name: 'recipe', preparation_time: '10 mins', cooking_time: '20 mins', description: 'Briyani', public: false,
+        Recipe.create(name: 'recipe', preparation_time: '10 mins', cooking_time: '20 mins',
+                      description: 'Vanina', public: false,
                       user_id: user.id)
       end
 
@@ -83,14 +85,16 @@ RSpec.describe RecipesController, type: :request do
 
     describe 'GET #toggle_public' do
       let!(:recipe) do
-        Recipe.create(name: 'Briyani', preparation_time: ' 10 mins', cooking_time: '20 mins', description: 'Fried rice', public: false,
+        Recipe.create(name: 'Vanina', preparation_time: ' 10 mins', cooking_time: '20 mins',
+                      description: 'Fried', public: false,
                       user_id: user.id)
       end
     end
 
     describe 'GET #shopping_list' do
       let!(:recipe) do
-        Recipe.create(name: 'Briyani', preparation_time: '10 mins', cooking_time: '20 mins', description: 'Fried rice', public: false,
+        Recipe.create(name: 'Vanina', preparation_time: '10 mins', cooking_time: '20 mins',
+                      description: 'Fried', public: false,
                       user_id: user.id)
       end
     end
