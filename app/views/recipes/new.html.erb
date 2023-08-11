@@ -1,6 +1,16 @@
 <h1>Create a New Recipe</h1>
+<% if @recipe.errors.any? %>
+  <div class="post-errors-box">
+    <p><%= pluralize(@recipe.errors.count, "error") %> found:</p>
 
-<%= form_with model: @recipe, url: user_recipes_path(@user, @recipe), method: :post do |form| %>
+    <ul class="recipe-errors-ul">
+      <% @recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+<% end %>
+
+<%= form_with model: @recipe, url: "/users/#{current_user.id}/recipes", method: :post do |form| %>
 
   <div class="field">
     <%= form.label :name %>

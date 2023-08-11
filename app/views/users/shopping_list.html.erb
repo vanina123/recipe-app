@@ -1,13 +1,39 @@
-<h1>Shopping List</h1>
+<h1 class="text-center">Shopping List</h1>
+<div class="container">
+<div class="row">
+<div class="d-flex justify-content-center shop-title">
+  <span>
+    Amount of food items to buy: <span><%= @missing_foods.length %></span>
+  </span>
+  <span>
+    Total value of food needed: <span>$<%= @missing_foods.map {|r| r.food.price * (r.quantity - r.food.quantity) }.sum %></span>
+  </span>
+  </div>
+</div>
+<div class="row">
+<table class="food__tabel">
+  <thead>
+    <tr class="foods__table-header-row">
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @missing_foods.each do | missing_food |%>
+      <tr class="foods__table-body-row">
+        <td><%= missing_food.food.name %></td>
 
-<ul>
-  <% @missing_foods.each do |missing_food| %>
-    <li>
-      <%= "#{missing_food.recipe_food.quantity} #{missing_food.measurement_unit} - #{missing_food.name}" %>
-      (Buy: <%= missing_food.missing_quantity %> <%= missing_food.measurement_unit %>)
-    </li>
-  <% end %>
-</ul>
-
-<p>Amount of Food Items to Buy: <%= @missing_foods.sum(&:missing_quantity) %></p>
-<p>Total Value of Food Needed: $<%= @missing_foods.sum { |food| food.missing_quantity * food.food.price } %></p>
+        <% if missing_food.food.user_id == current_user.id %>
+          <td><%= missing_food.quantity - missing_food.food.quantity %> <%= missing_food.food.measurement_unit %></td>
+        <% else %>
+          <td><%= missing_food.quantity %> <%= missing_food.food.measurement_unit %></td>
+        <% end %>
+       
+        <td>$<%= missing_food.food.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>

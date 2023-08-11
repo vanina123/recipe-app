@@ -2,6 +2,8 @@
   <%= link_to 'Foods', foods_path %>
   <%= link_to 'Recipes', user_recipes_path(current_user) %>
   <%= link_to 'Public Recipes', root_path %>
+  <%= link_to 'Shoping list', general_shopping_list_path  %>
+
 <% else %>
   <%= link_to 'Foods', foods_path %>
   <%= link_to 'Public Recipes', root_path %>

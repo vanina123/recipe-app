@@ -1,4 +1,5 @@
 <h1>Public</h1>
+<%= current_user.name %>
 <section class="container">
   <% @public_recipes.each do |recipe| %>
     <div class="card mb-3" style="width: 50rem;">
@@ -12,7 +13,7 @@
           <% else %>
             <h6 class="card-subtitle mb-2 text-muted">Unknown User</h6>
           <% end %>
-          <p class="mt-4">Total food items: <%= recipe.foods_counter %></p>
+          <p class="mt-4">Total food items: <%= recipe.recipe_foods.length %></p>
           <p class="mt-4">Total price: $<%= recipe.foods_total_price %></p>
         </div>
       </div>

@@ -19,8 +19,8 @@
         </label>
       <% end %>
       <% if @recipe.user == current_user %>
-        <%= button_to @recipe.public? ? 'Make Private' : 'Make Public', toggle_recipe_path( @recipe.id), method: :post, remote: true ,
-              class: 'btn btn'%>
+        <%= button_to @recipe.public? ? 'Make Private' : 'Make Public', toggle_recipe_path(@recipe.id), method: :put, remote: true ,
+              class: 'btn btn' %>
       <%else%>
       <p> Be Authorize </p>
       <%end%>
@@ -49,7 +49,7 @@
       <td>$ <%= ingredient.quantity* ingredient.food.price %></td>
       <td>
         <div class="d-flex justify-content-center gap-3">
-          <%= button_to "Delete", user_recipe_recipe_food_path(@recipe.user, @recipe.id, ingredient.id), method: :delete, class: "btn btn-danger" %>
+          <%= button_to "Delete", "/destroy_recipe/#{@recipe.id}/foods/#{ingredient.food.id}", method: :delete, class: "btn btn-danger" %>
           <%= link_to "Edit", edit_user_recipe_recipe_food_path(@recipe.user, @recipe, ingredient), class: "btn btn-primary" %>
         </div>
       </td>
