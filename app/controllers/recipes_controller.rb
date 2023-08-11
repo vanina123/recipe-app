@@ -25,7 +25,8 @@ class RecipesController < ApplicationController
     if @recipe.save
       redirect_to user_recipes_path(current_user.id), notice: 'Recipe Added successfully!'
     else
-      render :show
+      # render :show
+      render :new, status: 422
     end
   end
 
@@ -45,7 +46,7 @@ class RecipesController < ApplicationController
   end
 
   def public
-    @public_recipes = Recipe.includes(:foods, :user).where(public: true).order('created_at DESC')
+    @public_recipes = Recipe.includes(:recipe_foods, :user).where(public: true).order('created_at DESC')
   end
 
   def toggle
@@ -81,6 +82,6 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public, :user_id)
+    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public)
   end
 end
