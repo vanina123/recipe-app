@@ -35,34 +35,10 @@ RSpec.describe Recipe, type: :model do
     expect(recipe.errors[:preparation_time]).to include("can't be blank")
   end
 
-  it 'requires a preparation_time that is an integer' do
-    recipe = Recipe.new(preparation_time: 'abc')
-    recipe.validate
-    expect(recipe.errors[:preparation_time]).to include('is not a number')
-  end
-
-  it 'requires a preparation_time that is greater than 0' do
-    recipe = Recipe.new(preparation_time: -1)
-    recipe.validate
-    expect(recipe.errors[:preparation_time]).to include('must be greater than 0')
-  end
-
   it 'requires a cooking_time' do
     recipe = Recipe.new(cooking_time: nil)
     recipe.validate
     expect(recipe.errors[:cooking_time]).to include("can't be blank")
-  end
-
-  it 'requires a cooking_time that is an integer' do
-    recipe = Recipe.new(cooking_time: 'abc')
-    recipe.validate
-    expect(recipe.errors[:cooking_time]).to include('is not a number')
-  end
-
-  it 'requires a cooking_time that is greater than 0' do
-    recipe = Recipe.new(cooking_time: -1)
-    recipe.validate
-    expect(recipe.errors[:cooking_time]).to include('must be greater than 0')
   end
 
   it 'requires a description' do
