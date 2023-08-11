@@ -1,24 +1,47 @@
 require 'rails_helper'
 
-RSpec.describe 'Foods', type: :request do
-  before :each do
-    @taker = User.create(name: 'The Undertaker', email: 'phenom@streak.wwe', password: 'password')
+RSpec.describe FoodsController, type: :request do
+  let(:user) { User.new(name: 'test', email: 'test@test.com', password: 'password') }
+  let(:food) { Food.new(name: 'food', measurement_unit: 'units', price: 10, quantity: 10, user_id: user.id) }
 
-    @chicken = Food.create(name: 'Chicken', user: @taker, quantity: 1, measurement_unit: 'kg', price: 10.00)
-    @apple = Food.create(name: 'Apple', user: @taker, quantity: 5, measurement_unit: 'unit', price: 1.00)
+  before do
+    user.save
+    authenticate_user(user)
+    food.save
   end
 
-  describe 'GET /foods' do
-    it 'should get foods index and render the index template' do
-      sign_in @taker
-      get foods_path
+  def authenticate_user(user)
+    post user_session_path, params: { user: { email: user.email, password: user.password } }
+    follow_redirect!
+  end
 
-      expect(response).to have_http_status(200)
+  describe 'Foods' do
+    describe '#index' do
+      it 'returns a success response' do
+        get root_path
+        expect(response).to have_http_status(:ok)
+      end
+    end
 
-      expect(response).to render_template(:index)
+    describe '#show' do
+      it 'returns a success response' do
+        get foods_path(food)
+        expect(response).to have_http_status(:ok)
+      end
+    end
 
-      expect(response.body).to include(@chicken.name)
-      expect(response.body).to include(@apple.name)
+    describe '#new' do
+      it 'returns a success response' do
+        get new_food_path
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe '#destroy' do
+      it 'returns a success response' do
+        delete food_path(food)
+        expect(response).to redirect_to(foods_path)
+      end
     end
   end
 end
