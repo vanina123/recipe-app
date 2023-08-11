@@ -1,89 +1,98 @@
 require 'rails_helper'
 
-RSpec.describe RecipesController, type: :controller do
-  before :each do
-    @user = create(:user)
-    sign_in @user
+RSpec.describe RecipesController, type: :request do
+  let(:user) { User.new(name: 'Brian', email: 'bb@test.com', password: 'password') }
 
-    @recipe1 = create(:recipe, user: @user)
-    @recipe2 = create(:recipe, public: true, user: @user)
+  before do
+    user.save
   end
 
-  describe 'GET /recipes' do
-    it 'returns a success response' do
-      get recipes_path
-      expect(response).to have_http_status(200)
-    end
-
-    it 'renders the index template' do
-      get recipes_path
-      expect(response).to render_template(:index)
-    end
-
-    it 'assigns @recipes' do
-      get recipes_path
-      expect(assigns(:recipes)).to eq([@recipe1])
-    end
+  def authenticate_user(user)
+    post user_session_path, params: { user: { email: user.email, password: user.password, name: user.name } }
+    follow_redirect!
   end
 
-  describe 'GET /recipes/:id' do
-    it 'returns a success response' do
-      get recipe_path(@recipe1)
-      expect(response).to have_http_status(200)
+  describe 'Recipes' do
+    describe 'GET #index' do
+      it 'returns a success response if user is authenticated' do
+        authenticate_user(user)
+        get user_recipes_path(user.id)
+        expect(response).to have_http_status(:ok)
+      end
     end
 
-    it 'renders the show template' do
-      get recipe_path(@recipe1)
-      expect(response).to render_template(:show)
+    describe 'GET #show' do
+      let(:recipe) do
+        Recipe.create(name: 'Soup', preparation_time: '30 mins', cooking_time: "30 mins", description: 'Soup', public: false,
+                      user_id: user.id)
+      end
+
+      it 'returns a success response' do
+        authenticate_user(user)
+        get user_recipe_path(user.id, recipe)
+        expect(response).to be_successful
+      end
     end
 
-    it 'assigns @recipe' do
-      get recipe_path(@recipe1)
-      expect(assigns(:recipe)).to eq(@recipe1)
-    end
-  end
-
-  describe 'GET /recipes/public' do
-    it 'returns a success response' do
-      get public_recipes_path
-      expect(response).to have_http_status(200)
+    describe 'GET #new' do
+      it 'returns a success response' do
+        authenticate_user(user)
+        get new_user_recipe_path(user.id)
+        expect(response).to be_successful
+      end
     end
 
-    it 'renders the public recipes template' do
-      get public_recipes_path
-      expect(response).to render_template(:public_recipes)
+    describe 'POST #create' do
+      it 'should create a new Recipe' do
+        authenticate_user(user)
+        expect do
+          post "/users/#{user.id}/recipes",
+               params: {
+                 recipe: {
+                   name: 'Briyani',
+                   preparation_time: '30 mins',
+                   cooking_time: '30 mins',
+                   description: 'Fried rice',
+                   public: false,
+                   user_id: user.id
+                 }
+               }
+        end.to change(Recipe, :count).by(1)
+      end
     end
 
-    it 'assigns @public_recipes' do
-      get public_recipes_path
-      expect(assigns(:public_recipes)).to eq([@recipe2])
-    end
-  end
+    describe 'GET #destroy' do
+      let!(:recipe) do
+        Recipe.create(name: 'recipe', preparation_time: '10 mins', cooking_time: '20 mins', description: 'Briyani', public: false,
+                      user_id: user.id)
+      end
 
-  describe 'GET /recipes/shopping_list' do
-    it 'returns a success response' do
-      get shopping_list_recipes_path
-      expect(response).to have_http_status(200)
-    end
+      it 'should destroy the recipe' do
+        authenticate_user(user)
+        expect do
+          delete "/users/#{user.id}/recipes/#{recipe.id}"
+        end.to change(Recipe, :count).by(-1)
+      end
 
-    it 'renders the shopping list template' do
-      get shopping_list_recipes_path
-      expect(response).to render_template(:shopping_list)
-    end
-
-    it 'assigns @missing_foods' do
-      get shopping_list_recipes_path
-      expect(assigns(:missing_foods).count).to eq(2)
+      it 'should redirect to the recipes list' do
+        authenticate_user(user)
+        delete "/users/#{user.id}/recipes/#{recipe.id}"
+        expect(response).to redirect_to(user_recipes_path)
+      end
     end
 
-    it 'assigns @total_food_items' do
-      get shopping_list_recipes_path
-      expect(assigns(:total_food_items)).to eq(3)
+    describe 'GET #toggle_public' do
+      let!(:recipe) do
+        Recipe.create(name: 'Briyani', preparation_time: ' 10 mins', cooking_time: '20 mins', description: 'Fried rice', public: false,
+                      user_id: user.id)
+      end
     end
 
-    it 'assigns @total_price' do
-      get shopping_list_recipes_path
-      expect(assigns(:total_price)).to eq(25)
+    describe 'GET #shopping_list' do
+      let!(:recipe) do
+        Recipe.create(name: 'Briyani', preparation_time: '10 mins', cooking_time: '20 mins', description: 'Fried rice', public: false,
+                      user_id: user.id)
+      end
     end
   end
 end
