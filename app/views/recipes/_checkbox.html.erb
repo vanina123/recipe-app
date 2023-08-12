@@ -1,0 +1,41 @@
+<div class="container">
+  <h1 class="text-center mt-4 mb-4">Shopping List</h1>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center align-items-center shop-title">
+      <span class="mr-3">
+        Amount of food items to buy: <span><%= @missing_foods.length %></span>
+      </span>
+      <span>
+        Total value of food needed: <span>$<%= @missing_foods.map { |r| r.food.price * (r.quantity - r.food.quantity) }.sum %></span>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table food__table">
+        <thead>
+          <tr class="foods__table-header-row">
+            <th>Food</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @missing_foods.each do |missing_food| %>
+            <tr class="foods__table-body-row">
+              <td><%= missing_food.food.name %></td>
+              
+              <% if missing_food.food.user_id == current_user.id %>
+                <td><%= missing_food.quantity - missing_food.food.quantity %> <%= missing_food.food.measurement_unit %></td>
+              <% else %>
+                <td><%= missing_food.quantity %> <%= missing_food.food.measurement_unit %></td>
+              <% end %>
+              
+              <td>$<%= missing_food.food.price %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

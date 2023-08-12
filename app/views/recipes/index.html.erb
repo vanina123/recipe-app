@@ -1,0 +1,29 @@
+<div class="container">
+  <h1 class="mb-4">My Recipes</h1>
+  <%= link_to "Add New Recipe", new_user_recipe_path, class: "btn btn-primary mb-2" %>
+
+  <% if @recipes.empty? %>
+    <p>You have no recipes yet.</p>
+  <% else %>
+    <ul class="list-group">
+      <% @recipes.each do |recipe| %>
+        <li class="list-group-item">
+          <div class="d-flex justify-content-between align-items-start">
+            <div class>
+              <h3><%= recipe.name %></h3>
+              <div class="d-flex">
+              <%= link_to "View Recipe", user_recipe_path(id: recipe.id, user_id: recipe.user.id), class: "btn btn-info m-3 ms-4" %>
+              <% if current_user == recipe.user %>
+                <%= button_to "Delete", user_recipe_path(recipe.user, recipe.id), method: :delete, class: "btn btn-danger m-3 ms-4" %>
+              <% end %>
+            </div>
+            </div>
+            <div>
+              <p><%= recipe.description %></p>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

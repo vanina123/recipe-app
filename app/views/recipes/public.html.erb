@@ -1,0 +1,21 @@
+<h1 class="text-center">Public Recipe</h1>
+<section class="container">
+  <% @public_recipes.each do |recipe| %>
+    <div class="card mb-3" style="max-width: 50rem;">
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= link_to recipe.name, root_path %>
+        </h5>
+        <p class="text-end">
+          <span class="me-2">Total food items:</span>
+          <%= recipe.recipe_foods.length %>
+        </p>
+        <p>By: <%= recipe.user.present? ? recipe.user.name : 'Unknown User' %></p>
+        <p class="text-end">
+          <span class="me-2">Total price:</span>
+          $<%= recipe.foods_total_price %>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</section>

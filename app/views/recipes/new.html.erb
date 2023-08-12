@@ -1,0 +1,45 @@
+<div class="container">
+  <h1 class="mb-4">Create a New Recipe</h1>
+  
+  <% if @recipe.errors.any? %>
+    <div class="alert alert-danger">
+      <p><%= pluralize(@recipe.errors.count, "error") %> found:</p>
+      <ul>
+        <% @recipe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @recipe, url: "/users/#{current_user.id}/recipes", method: :post do |form| %>
+    <div class="mb-3">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :preparation_time, class: "form-label" %>
+      <%= form.text_field :preparation_time, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :cooking_time, class: "form-label" %>
+      <%= form.text_field :cooking_time, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :description, class: "form-label" %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="form-check mb-3">
+      <%= form.check_box :public, class: "form-check-input" %>
+      <%= form.label "Public", class: "form-check-label" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.submit "Create Recipe", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
